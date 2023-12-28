@@ -33,3 +33,18 @@ sudo $package_manager install -y $PACKAGES
 
 echo "Package installation completed."
 
+# Set up firewall
+echo "Setting up firewall..."
+sudo ufw allow OpenSSH  # Allow SSH connections
+sudo ufw enable  # Enable the firewall
+sudo ufw status  # Check the firewall status
+
+echo "Firewall setup completed."
+
+# Set up SSH
+echo "Setting up SSH..."
+sudo sed -i 's/#Port 22/Port 2200/g' /etc/ssh/sshd_config  # Change the SSH port from 22 to 2200
+sudo sed -i 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config  # Disable root login
+sudo service ssh restart  # Restart SSH
+
+echo "SSH setup completed."
